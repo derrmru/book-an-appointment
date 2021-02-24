@@ -1,0 +1,52 @@
+.fu-page {
+    width: 100%;
+    text-align: center;
+    overflow-y: scroll;
+    padding-bottom: 100px;
+}
+
+.fu-border {
+    width: 70%;
+    max-width: 750px;
+    padding-bottom: 40px;
+    margin: 60px auto;
+    border: 1px solid var(--the-black);
+    border-radius: 10px;
+}
+
+.fu-container {
+    width: 90%;
+    margin: auto;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#fu-title {
+    margin-top: 20px;
+}
+
+.submit-fu {
+    margin: 40px 0;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--second-color);
+    color: white;
+}
+
+@media (hover:hover) {
+    .submit-fu:hover {
+        background-color: var(--the-black);
+        color: white;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .fu-border {
+        margin-top: 10px;
+        width: 98%;
+    }
+  }

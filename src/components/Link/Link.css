@@ -1,0 +1,24 @@
+.page-link {
+    margin: 10px 0;
+    color: var(--the-white);
+    background-color: var(--second-color);
+    padding: 10px 0;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.page-link a {
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+}
+
+.page-link:hover {
+    background-color: var(--the-black);
+}
+
+.page-link a:hover {
+    color: var(--the-white);
+}

@@ -1,0 +1,156 @@
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.sidebar-container {
+    height: 100vh;
+    width: 32%;
+    background-color: var(--the-white);
+    margin: 0;
+    /*-webkit-box-shadow: 10px 0px 22px -6px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 0px 22px -6px rgba(0,0,0,0.5);
+    box-shadow: 10px 0px 22px -6px rgba(0,0,0,0.5);*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    overflow-y: scroll;
+}
+
+.close-button {
+    position: fixed;
+    top: 20px;
+    right: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+.sidebar-scroll {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.sidebar-titles h1, h2{
+    font-weight: 100;
+}
+
+.sidebar-titles h1 {
+    font-size: 2vw;
+}
+
+.sidebar-titles h2 {
+    font-size: 1.5vw;
+}
+
+.sidebar-titles h3 {
+    margin: 0;
+}
+
+.sidebar-titles {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.stage-text {
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    margin: 10px 0 20px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.progression {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-items {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-start;
+}
+
+.linked {
+    color: var(--the-white);
+    text-decoration: none;
+    font-size: 1.4vw;
+}
+
+.linked:hover {
+    color: var(--main-color);
+
+}
+
+.fine-print {
+    margin: 20px 0 100px 0;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 1025px) {
+    .sidebar-container {
+        width: 100%;
+        z-index: 800;
+        height: 100vh;
+        display: none;
+    }
+
+    .sidebar-titles h1 {
+        font-size: 40px;
+    }
+    
+    .sidebar-titles h2 {
+        font-size: 20px;
+    }
+
+    .sidebar-items {
+        text-align: center;
+    }
+
+    .linked {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .sidebar-container {
+        display: inline;
+    }
+}
+
+@media only screen and (max-width: 1025px) {
+    .sidebar-titles h1 {
+        font-size: 30px;
+    }
+    
+    .sidebar-titles h2 {
+        font-size: 20px;
+    }
+
+    .close-button {
+        display: inline;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .page-link {
+        margin: 10px 0;
+    }
+}

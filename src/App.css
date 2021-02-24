@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+:root {
+  --the-black: #1d355e;
+  --second-color: #248ec2;
+  --the-white: #ffffff;
+  --transparent: #ffffffc9;
+  --see-through: #ffffff00;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.App {
+  color: var(--the-black);
+  font-family: 'Playfair Display', serif;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+hr {
+  width: 80%;
+  background-color: var(--the-black);
+}
+
+h1 {
+  font-weight: 100;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 100;
+}
+
+h4 {
+  font-size: 14px;
+}
+
+h5 {
+  font-size: 12px;
+}
+
+a {
+  color: var(--the-black);
+}
+
+a:hover {
+  color: var(--second-color);
+}
+
+.portal {
+  width: 68%;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*overflow-y: scroll;*/
+  height: 100vh;
+  background-image: url('./images/background-image.jpg');
+  background-image: -webkit-image-set(url('./images/background-image.webp') 1x);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.portal-title {
+  margin: 60px 0 20px 0;
+  width: 100%;
+}
+
+.back-to-calendar {
+  width: 60%;
+  border: none;
+  background-color: var(--the-black);
+  padding: 10px 0;
+  margin: 10px 0 20px 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/*.back-to-calendar:hover {
+  background-color: white;
+  color: var(--the-black);
+}*/
+
+@media only screen and (max-width: 1025px) {
+  .portal {
+      width: 100%;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+
+  .portal-title {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  h2 {
+    font-size: 14px;
+  }
+
+  h3 {
+    font-size: 12px;
+  }
+
+  h4 {
+      font-size: 12px;
+  }
+
+  h5 {
+    font-size: 10px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .back-to-calendar {
+    width: 90%;
+  }
+}
+
+@media (hover:hover) {
+  .back-to-calendar:hover {
+    background-color: white;
+    color: var(--the-black);
+  }
+}

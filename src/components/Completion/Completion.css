@@ -1,0 +1,6 @@
+.completion-container {
+    border: 1px solid var(--the-black);
+    padding: 40px;
+    width: 60%;
+    margin: 140px;
+}

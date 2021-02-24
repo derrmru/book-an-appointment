@@ -1,0 +1,112 @@
+.dates-container {
+    width: 100%;
+    text-align: center;
+    overflow-y: scroll;
+    padding-bottom: 100px;
+}
+
+.dates {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px 0;
+    border: 1px solid var(--the-black);
+    border-radius: 10px;
+    width: 80%;
+    max-width: 700px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: .4s;
+}
+
+.span-header {
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-range {
+    font-size: 16px;
+}
+
+.inc-button {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    border: 1px solid var(--the-black);
+    border-radius: 5px;
+    transition: .4s;
+    background-color: white;
+}
+
+@media (hover:hover) {
+    .inc-button:hover {
+        background-color: var(--the-black);
+        color: white;
+    }
+}
+
+.date-headers {
+    width: calc(100% / 6);
+}
+
+.date-axis {
+    font-size: 16px;
+}
+
+.times-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.times {
+    width: 90%;
+    margin: 5px 0;
+    padding: 5px 0;
+    cursor: pointer;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--second-color);
+    font-size: 12px;
+}
+
+@media (hover:hover) {
+    .times:hover {
+        background-color: var(--the-black);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .dates {
+        width: 96%;
+    }
+
+    .inc-button {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+        padding: 0;
+    }
+
+    .times {
+        font-size: 10px;
+    }
+
+    .date-range {
+        font-size: 13px;
+    }
+
+    .date-axis {
+        font-size: 10px;
+    }
+}

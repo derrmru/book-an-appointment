@@ -1,0 +1,96 @@
+.fu-pay-container {
+    width: 100%;
+    text-align: center;
+    overflow-y: scroll;
+    padding-bottom: 100px;
+}
+
+.fu-pay {
+    margin: 100px 0;
+    width: 70%;
+    margin: auto;
+    border: 1px solid var(--the-black);
+    border-radius: 10px;
+}
+
+.fu-pp-container {
+    width: 70%;
+    margin: auto;
+}
+
+.fu-email-label {
+    width: 90%;
+    margin: 20px auto;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.fu-email {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 5px;
+    border: none;
+}
+
+.fu-label {
+    width: 45%;
+    text-align: left;
+}
+
+.requiredIcon {
+    width: 45%;
+    text-align: right;
+    color: red;
+}
+
+.fu-submit {
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0 20px;
+    padding: 10px 0;
+    background-color: var(--second-color);
+    color: white;
+    cursor: pointer;
+    -webkit-appearance: none;
+    outline: none;
+    transition: .2s;
+}
+
+@media (hover:hover) {
+    .fu-submit:hover {
+        background-color: var(--the-black);
+    }
+}
+
+.fu-pay-in-clinic {
+    width: 90%;
+    padding: 10px 0;
+    margin: 20px 0;
+    border-radius: 5px;
+    background-color: var(--second-color);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: .2s;
+}
+
+@media (hover:hover) {
+    .fu-pay-in-clinic:hover {
+        background-color: var(--the-black);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .fu-pay {
+        width: 96%;
+    }
+
+    .fu-pp-container {
+        width: 96%;
+        margin: auto;
+    }
+  }
