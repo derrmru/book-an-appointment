@@ -84,7 +84,7 @@ function App() {
         appointmentType: type, 
         payInClinic: payInClinic
     }
-    $.post("https://script.google.com/macros/s/AKfycbz4ShtilwAYrGH2MSDYrhQvIXd5eG6TPM-BW5583AP_eBH0yF47Ac5Y/exec", //make sure to replace with production endpoint after development
+    $.post(process.env.REACT_APP_SUBMIT_NP, //make sure to replace with production endpoint after development
         details, 
         async (res) => {
             setStage(3)
@@ -111,7 +111,7 @@ function App() {
     }
     console.log(details)
     setLoad(true)
-    $.post("https://script.google.com/macros/s/AKfycbxhv2GUAL_lPze7NZKDuq9UkX2ywPshG46_VVyNofQUnVak0qDKi2zCKQ/exec", //make sure to replace with production endpoint after development
+    $.post(process.env.REACT_APP_SUBMIT_FU, //make sure to replace with production endpoint after development
         details, 
         async (res) => {
           console.log(res)
