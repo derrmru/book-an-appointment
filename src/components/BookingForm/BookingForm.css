@@ -51,6 +51,7 @@
     margin: 10px auto;
     padding: 10px;
     border: none;
+    box-sizing: border-box;
     -webkit-appearance: none;
 }
 

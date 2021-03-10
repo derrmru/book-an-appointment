@@ -60,11 +60,12 @@ function App() {
   }
 
   //handle submission of new appointments
-  const handleSubmit = (firstName: string, lastName: string, telephone: string, email: string, address: string, mop: string, policy: string, auth: string, dob: string, gpAddress: string, privacy: boolean, payInClinic: boolean) => {
+  const handleSubmit = (title: string, firstName: string, lastName: string, telephone: string, email: string, address: string, mop: string, policy: string, auth: string, dob: string, gpAddress: string, privacy: boolean, payInClinic: boolean) => {
     setLoad(true)
     const sTime = new Date(selected)
-    //console.log(sTime)
+    const t = title[0].toUpperCase() + title.slice(1).toLowerCase()
     const details = {
+        title: t,
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         telephone: telephone,
@@ -149,7 +150,7 @@ function App() {
                       <BookingForm 
                         setStage={(stage: number) => setStage(stage)}
                         selectedTime={selected}
-                        handleSubmit={(firstName: string, lastName: string, telephone: string, email: string, address: string, mop: string, policy: string, auth: string, dob: string, gpAddress: string, privacy: boolean, payInClinic: boolean) => handleSubmit(firstName, lastName, telephone, email, address, mop, policy, auth, dob, gpAddress, privacy, payInClinic)}
+                        handleSubmit={(title: string, firstName: string, lastName: string, telephone: string, email: string, address: string, mop: string, policy: string, auth: string, dob: string, gpAddress: string, privacy: boolean, payInClinic: boolean) => handleSubmit(title, firstName, lastName, telephone, email, address, mop, policy, auth, dob, gpAddress, privacy, payInClinic)}
                         type={type}
                         /> 
                     </> :

@@ -5,7 +5,7 @@ import './BookingForm.css'
 interface Props {
     setStage: (stage: number) => void,
     selectedTime: string,
-    handleSubmit: (firstName: string, lastName: string, telephone: string, email: string, address: string, mop: string, policy: string, auth: string, dob: string, gp: string, privacy: boolean, payInClinic: boolean) => void,
+    handleSubmit: (title: string, firstName: string, lastName: string, telephone: string, email: string, address: string, mop: string, policy: string, auth: string, dob: string, gp: string, privacy: boolean, payInClinic: boolean) => void,
     type: string
 }
 
@@ -14,6 +14,7 @@ const BookingForm: React.FC<Props> = (props) => {
     console.log(selectedDate)
 
     //form fields
+    const [title, setTitle] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -93,7 +94,7 @@ const BookingForm: React.FC<Props> = (props) => {
 
     //handle submit if paypal is used
     const theSubmission = () => {
-        props.handleSubmit(firstName, lastName, telephone, email, address, mop, policy, auth, dob, gpAddress, privacy, payInClinic)
+        props.handleSubmit(title, firstName, lastName, telephone, email, address, mop, policy, auth, dob, gpAddress, privacy, payInClinic)
     }
 
     //if they have opted to pay in clinic, submit the form
@@ -124,6 +125,21 @@ const BookingForm: React.FC<Props> = (props) => {
                     className='bookingForm' 
                     onSubmit={(e: any) => formSub(e)}
                     >
+                    <label>
+                        <div className='bookingLabel'>Title:</div> <div className='requiredIcon'>*</div>
+                        <br />
+                        <select name="title" value={title} onChange={e => setTitle(e.target.value)} required>
+                            <option value="">-Select-</option>
+                            <option value="Mr">Mr</option>
+                            <option value="Ms">Ms</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Master">Master</option>
+                            <option value="Dr">Dr</option>
+                            <option value="Lord">Lord</option>
+                            <option value="Sir">Sir</option>
+                        </select>
+                    </label>
                     <label>
                         <div className='bookingLabel'>First Name:</div> <div className='requiredIcon'>*</div>
                         <br />
