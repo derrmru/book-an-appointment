@@ -43,7 +43,7 @@ const AppointmentType: React.FC<Props> = (props) => {
             title: 'Ingrown Toenail Removal',
             consultant: 'Mr. Kaser Nazir',
             specialism: 'Consultant Podiatric Surgeon',
-            description: 'Toenail Excision Appointment',
+            description: 'Toenail Excision Package - Includes 3 post operative follow up appointments, as needed.',
             price: '£673',
             code: 'KN-IGTN'
         },
@@ -51,7 +51,7 @@ const AppointmentType: React.FC<Props> = (props) => {
             title: 'Ingrown Toenail Removal',
             consultant: 'Mr. Steven Thomas',
             specialism: 'Specialist Podiatrist',
-            description: 'Toenail Excision Appointment',
+            description: 'Toenail Excision Package - Includes 3 post operative follow up appointments, as needed.',
             price: '£580',
             code: 'ST-IGTN'
         }
