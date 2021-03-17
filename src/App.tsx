@@ -39,7 +39,7 @@ function App() {
               setAvailability(result)
               setLoad(false)
             })
-    } else if (s.indexOf('NP') >= 0) {
+    } else if (s.indexOf('NP') >= 0 || s.indexOf('IGTN') >= 0) {
       setLoad(true);
         $.post(codes[s]['url'], 
           { date: startDate, appointmentLength: codes[s]['length'], type: s }, 

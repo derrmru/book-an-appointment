@@ -38,6 +38,22 @@ const AppointmentType: React.FC<Props> = (props) => {
             description: 'Follow Up Appointment',
             price: '£90',
             code: 'ST-FU'
+        },
+        {
+            title: 'Ingrown Toenail Removal',
+            consultant: 'Mr. Kaser Nazir',
+            specialism: 'Consultant Podiatric Surgeon',
+            description: 'Toenail Excision Appointment',
+            price: '£673',
+            code: 'KN-IGTN'
+        },
+        {
+            title: 'Ingrown Toenail Removal',
+            consultant: 'Mr. Steven Thomas',
+            specialism: 'Specialist Podiatrist',
+            description: 'Toenail Excision Appointment',
+            price: '£580',
+            code: 'ST-IGTN'
         }
     ]
 

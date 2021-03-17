@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import PayPal from '../Paypal/PayPal'
+import aTypes from '../../appointmentCodes/appointmentCodes'
 import './BookingForm.css'
 
 interface Props {
@@ -102,16 +103,6 @@ const BookingForm: React.FC<Props> = (props) => {
         payInClinic && theSubmission()
     })
 
-    //determine price
-    const [price, setPrice] = useState<number>(0);
-    useEffect(() => {
-        console.log(props.type)
-        props.type === 'KN-NP' ? setPrice(200) :
-            props.type === 'KN-FU' ? setPrice(130) :
-                props.type === 'ST-NP' ? setPrice(120) :
-                    props.type === 'ST-FU' && setPrice(90)
-    }, [price, props.type])
-
     return (
         <div className="books">
             <div className='bookingContainer'>
@@ -211,8 +202,12 @@ const BookingForm: React.FC<Props> = (props) => {
                                     <>
                                     <hr className="divider" />
                                         <div style={{fontSize: '14px', width: '90%', margin: 'auto'}}>
-                                            The appointment fee is £{price}.<br /><br />
-                                            When you submit the form you can opt to either pay now or pay in clinic.
+                                            The appointment fee is £{aTypes[props.type]['price']}.<br /><br />
+                                            {
+                                                props.type.indexOf('IGTN') >= 0 ? 
+                                                    <>Payment will be collected at the clinic or following your appointment.</> :
+                                                        <>When you submit the form you can opt to either pay now or pay in clinic.</>
+                                            } 
                                         </div>
                                     <hr className="divider" />
                                     </>
@@ -238,7 +233,7 @@ const BookingForm: React.FC<Props> = (props) => {
                         </div>
                     </label>
                     {
-                        (mop === 'self-funding' && privacy) ? 
+                        (mop === 'self-funding' && privacy && props.type.indexOf('IGTN') < 0) ? 
                             <>
                                 <input 
                                     className='submitButton' 
@@ -248,11 +243,8 @@ const BookingForm: React.FC<Props> = (props) => {
                                     />
                                 <div className="paypal-container">
                                     <PayPal 
-                                        price={price}
-                                        description={
-                                            "Consultation with " + 
-                                            (props.type.indexOf('KN') >= 0 ? "Mr. Kaser Nazir, Consultant Podiatric Surgeon" : "Mr. Steven Thomas, Specialist Podiatrist")
-                                        }
+                                        price={aTypes[props.type]['price']}
+                                        description={aTypes[props.type]['description']}
                                         paySubmit={() => theSubmission()}
                                         />
                                 </div> 
