@@ -19,7 +19,7 @@ const codes: any = {
     },
     'ST-FU' : {
         'url': process.env.REACT_APP_AVAILABILITY,
-        'length': 20,
+        'length': 40,
         'price': 90,
         'description': 'Follow Up Consultation with Mr. Steven Thomas, Specialist Podiatrist.'
 
