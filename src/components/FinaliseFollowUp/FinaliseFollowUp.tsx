@@ -22,7 +22,7 @@ const FinaliseFollowUp: React.FC<Props> = (props) => {
     //determine price from type
     useEffect(() => {
         if (props.type === 'KN-FU') {
-            setPrice(200)
+            setPrice(175)
         } else if (props.type === 'ST-FU') {
             setPrice(120)
         }
