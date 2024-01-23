@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import PayPal from '../Paypal/PayPal'
+import AutoComplete from 'places-autocomplete-react'
 import aTypes from '../../appointmentCodes/appointmentCodes'
 import './BookingForm.css'
 
@@ -11,8 +12,7 @@ interface Props {
 }
 
 const BookingForm: React.FC<Props> = (props) => {
-    const selectedDate = new Date(props.selectedTime).toString()
-    console.log(selectedDate)
+    // const selectedDate = new Date(props.selectedTime).toString()
 
     //form fields
     const [title, setTitle] = useState('');
@@ -29,63 +29,25 @@ const BookingForm: React.FC<Props> = (props) => {
     const [payInClinic, setPayInClinic] = useState(false);
     const [privacy, setPrivacy] = useState(false);
 
-    //Google autocomplete for addresses
-    const [googleLoad, setGoogleLoad] = useState<boolean>(false);
-    const renderGoogle = () => {
-        setGoogleLoad(true)
-        let autocomplete: any;
-        const google = window.google;
-        const auto: any = document.getElementById('autocomplete');
-        autocomplete = new google.maps.places.Autocomplete(auto, {})
-
-        let handlePlaceSelect = () => {
-            let addressObject = autocomplete.getPlace();
-            let address = addressObject.address_components;
-
-            autocomplete.setFields(['address_component']);
-            let textAddress = '';
-            address.map((part: any, i: number) => {
-                textAddress += part['long_name']
-                if (i < address.length - 1) {
-                    textAddress += ', '
+    //handle address select
+    const addressSelection = (location: string, addressObject: { [index: string]: {} }) => {
+        const typedAddress = Object.keys(addressObject)
+            .reduce((acc, cur) => {
+                if (cur !== 'formattedAddress') {
+                    acc.push(addressObject[cur])
+                    return acc
                 }
-                return '';
-            })
-            setAddress(textAddress)
+                return acc;
+            }, []).join(', ')
+        if (addressObject) {
+            if (location === 'home' && address !== typedAddress) {
+                setAddress(typedAddress)
+            }
+            if (location === 'gp' && gpAddress !== typedAddress) {
+                setGpAddress(typedAddress)
+            }
         }
-        autocomplete.addListener("place_changed", handlePlaceSelect)
-
-        let autoGP: any;
-        const gpAuto: any = document.getElementById('GP');
-        autoGP = new google.maps.places.Autocomplete(gpAuto, {})
-
-        let handleGpPlaceSelect = () => {
-            let addressObject = autoGP.getPlace();
-            let address = addressObject.address_components;
-
-            autoGP.setFields(['address_component']);
-            let textAddress = '';
-            address.map((part: any, i: number) => {
-                textAddress += part['long_name']
-                if (i < address.length - 1) {
-                    textAddress += ', '
-                }
-                return '';
-            })
-            setGpAddress(textAddress)
-        }
-        autoGP.addListener("place_changed", handleGpPlaceSelect)
     }
-
-    useEffect(() => {
-        if (googleLoad === false) {
-            const script = document.createElement("script");
-            script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAkuPHNHz8Ki1KV6n6iI1-EFVIC3ZAm0QY&libraries=places";
-            script.async = true;
-            script.onload = () => renderGoogle();
-            document.body.appendChild(script);
-        }
-    }, [googleLoad])
 
     //prevent form default during handle submit if client is using health insurance
     const formSub = (e: any) => {
@@ -107,15 +69,15 @@ const BookingForm: React.FC<Props> = (props) => {
         <div className="books">
             <div className='bookingContainer'>
                 <div className='atBanner'>
-                    <h1 className="portal-title" style={{marginTop: '40px'}}>Appointment Booking Form</h1>
-                    <p>You have selected {selectedDate.split(':00 GMT')[0]}</p>
+                    <h1 className="portal-title" style={{ marginTop: '40px' }}>Appointment Booking Form</h1>
+                    <p>You have selected {props.selectedTime}</p>
                 </div>
                 <hr className='hr' />
 
-                <form 
-                    className='bookingForm' 
+                <form
+                    className='bookingForm'
                     onSubmit={(e: any) => formSub(e)}
-                    >
+                >
                     <label>
                         <div className='bookingLabel'>Title:</div> <div className='requiredIcon'>*</div>
                         <br />
@@ -144,7 +106,7 @@ const BookingForm: React.FC<Props> = (props) => {
                     <label>
                         <div className='bookingLabel'>Date of Birth:</div> <div className='requiredIcon'>*</div>
                         <br />
-                        <input type="date" style={{WebkitAppearance: 'button'}} value={dob} onChange={(e) => setDob(e.target.value)} required />
+                        <input type="date" style={{ WebkitAppearance: 'button' }} value={dob} onChange={(e) => setDob(e.target.value)} required />
                     </label>
                     <label>
                         <div className='bookingLabel'>Telephone:</div> <div className='requiredIcon'>*</div>
@@ -156,10 +118,16 @@ const BookingForm: React.FC<Props> = (props) => {
                         <br />
                         <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="e.g. example@example.com" required />
                     </label>
-                    <label>
-                        <div className='bookingLabel'>Address:</div> <div className='requiredIcon'>*</div>
-                        <br />
-                        <input id="autocomplete" type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Your Home Address" required />
+                    <label id="addressContainer">
+                        <hr />
+                        Your Home Address: <br /><br />
+                        <AutoComplete
+                            placesKey="AIzaSyAkuPHNHz8Ki1KV6n6iI1-EFVIC3ZAm0QY"
+                            inputId="address"
+                            setAddress={(addressObject: { [index: string]: string }) => addressSelection('home', addressObject)}
+                            required={true}
+                        />
+                        <hr />
                     </label>
                     <label>
                         <div className='bookingLabel'>Method of Payment:</div> <div className='requiredIcon'>*</div>
@@ -182,10 +150,10 @@ const BookingForm: React.FC<Props> = (props) => {
                             <option value="wpa">WPA</option>
                         </select>
                     </label>
-                        {
-                            mop !== 'self-funding' && mop !== '' ? 
+                    {
+                        mop !== 'self-funding' && mop !== '' ?
                             <>
-                            <hr className="divider" />
+                                <hr className="divider" />
                                 <label>
                                     <div className='bookingLabel'>Policy Number:</div>
                                     <br />
@@ -196,75 +164,81 @@ const BookingForm: React.FC<Props> = (props) => {
                                     <br />
                                     <input type="text" value={auth} onChange={(e) => setAuth(e.target.value)} placeholder="Issued by your insurance provider" />
                                 </label>
-                            <hr className="divider" />
+                                <hr className="divider" />
                             </> :
-                                mop === 'self-funding' &&
-                                    <>
-                                    <hr className="divider" />
-                                        <div style={{fontSize: '14px', width: '90%', margin: 'auto'}}>
-                                            The appointment fee is £{aTypes[props.type]['price']}.<br /><br />
-                                            {
-                                                props.type.indexOf('IGTN') >= 0 ? 
-                                                    <>Payment will be collected at the clinic or following your appointment.</> :
-                                                        <>When you submit the form you can opt to either pay now or pay in clinic.</>
-                                            } 
-                                        </div>
-                                    <hr className="divider" />
-                                    </>
-                        }
+                            mop === 'self-funding' &&
+                            <>
+                                <hr className="divider" />
+                                <div style={{ fontSize: '14px', width: '90%', margin: 'auto' }}>
+                                    The appointment fee is £{aTypes[props.type]['price']}.<br /><br />
+                                    {
+                                        props.type.indexOf('IGTN') >= 0 ?
+                                            <>Payment will be collected at the clinic or following your appointment.</> :
+                                            <>When you submit the form you can opt to either pay now or pay in clinic.</>
+                                    }
+                                </div>
+                                <hr className="divider" />
+                            </>
+                    }
                     <label>
-                    <label>
-                        <div className='bookingLabel'>GP Address:</div> <div className='requiredIcon'>*</div>
-                        <br />
-                        <input id="GP" type="text" value={gpAddress} onChange={(e) => setGpAddress(e.target.value)} placeholder="Your General Practitioner's Address" required />
-                    </label>
+                        <label id="addressContainer">
+                            <hr />
+                            Your GP Address: <br /><br />
+                            <AutoComplete
+                                placesKey="AIzaSyAkuPHNHz8Ki1KV6n6iI1-EFVIC3ZAm0QY"
+                                inputId="gpAddress"
+                                setAddress={(addressObject: { [index: string]: string }) => addressSelection('gp', addressObject)}
+                                required={true}
+                            />
+                            <hr />
+                        </label>
                         <div className='bookingLabel'>Privacy:</div> <div className='requiredIcon'>*</div>
                         <br />
                         <div className="checkbox-alignment">
-                            <input 
-                                name="privacy" 
-                                type="checkbox" 
-                                style={{appearance: 'auto', WebkitAppearance: 'checkbox', width: '30px', border: '1px solid var(--the-black)', margin: '0 15px'}}
-                                checked={privacy} 
-                                onChange={() => setPrivacy(!privacy)} 
-                                required 
-                                />
+                            <input
+                                name="privacy"
+                                type="checkbox"
+                                style={{ appearance: 'auto', WebkitAppearance: 'checkbox', width: '30px', border: '1px solid var(--the-black)', margin: '0 15px' }}
+                                checked={privacy}
+                                onChange={() => setPrivacy(!privacy)}
+                                required
+                            />
                             <p>By ticking this box you indicate that you have read and agree with our<a href="https://www.londonfootandanklesurgery.co.uk/about-us/privacy-policy/" target="_blank" rel="noreferrer">&nbsp;Privacy Policy&nbsp;</a></p>
                         </div>
                     </label>
                     {
-                        (mop === 'self-funding' && privacy && props.type.indexOf('IGTN') < 0) ? 
+                        (mop === 'self-funding' && privacy && props.type.indexOf('IGTN') < 0) ?
                             <>
-                                <input 
-                                    className='submitButton' 
-                                    type="submit" 
-                                    onClick={() => setPayInClinic(true)} 
-                                    value="Pay In Clinic" 
-                                    />
+                                <input
+                                    className='submitButton'
+                                    type="submit"
+                                    onClick={() => setPayInClinic(true)}
+                                    value="Pay In Clinic"
+                                />
                                 <div className="paypal-container">
-                                    <PayPal 
+                                    <PayPal
                                         price={aTypes[props.type]['price']}
                                         description={aTypes[props.type]['description']}
                                         paySubmit={() => theSubmission()}
-                                        />
-                                </div> 
-                            </> : 
-                                    <input className='submitButton' type="submit" value="Submit" />
+                                    />
+                                </div>
+                            </> :
+                            <input className='submitButton' type="submit" value="Submit" />
                     }
                 </form>
             </div>
             <button
                 className="back-to-calendar"
                 onClick={() => props.setStage(1)}
-                >
-                  Select A Different Time
-            </button> 
+            >
+                Select A Different Time
+            </button>
             <button
                 className="back-to-calendar"
                 onClick={() => props.setStage(0)}
-                >
-                  Choose A Different Appointment Type
-            </button> 
+            >
+                Choose A Different Appointment Type
+            </button>
         </div>
     )
 }
